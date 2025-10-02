@@ -337,62 +337,147 @@
         </div>
     </div>
 
-    <!-- Payment Modal -->
-    <div id="payment-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Complete Payment</h2>
-                <span class="close-modal">&times;</span>
+ <!-- Payment Modal -->
+<div id="payment-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Complete Payment - Account Activation</h2>
+            <span class="close-modal">&times;</span>
+        </div>
+        <div class="payment-content">
+            <div class="payment-amount-info">
+                <h3>Activation Fee: <span class="amount">$49.99</span></h3>
+                <p>One-time payment to unlock all job opportunities</p>
             </div>
-            <div class="payment-content">
-                <div class="payment-methods">
-                    <div class="payment-method active" data-method="paypal">
-                        <i class="fab fa-paypal"></i>
-                        <span>PayPal</span>
-                    </div>
-                    <div class="payment-method" data-method="stripe">
-                        <i class="fab fa-cc-stripe"></i>
-                        <span>Stripe</span>
-                    </div>
-                    <div class="payment-method" data-method="mpesa">
-                        <i class="fas fa-mobile-alt"></i>
-                        <span>M-Pesa</span>
-                    </div>
+            
+            <div class="payment-methods">
+                <div class="payment-method active" data-method="mpesa">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>M-Pesa</span>
                 </div>
-                <div class="payment-form">
-                    <div id="paypal-form" class="payment-details active">
-                        <div class="form-group">
-                            <label for="paypal-email">PayPal Email</label>
-                            <input type="email" id="paypal-email">
-                        </div>
-                    </div>
-                    <div id="stripe-form" class="payment-details">
-                        <div class="form-group">
-                            <label for="card-number">Card Number</label>
-                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="expiry-date">Expiry Date</label>
-                                <input type="text" id="expiry-date" placeholder="MM/YY">
-                            </div>
-                            <div class="form-group">
-                                <label for="cvv">CVV</label>
-                                <input type="text" id="cvv" placeholder="123">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="mpesa-form" class="payment-details">
-                        <div class="form-group">
-                            <label for="mpesa-phone">Phone Number</label>
-                            <input type="tel" id="mpesa-phone">
-                        </div>
-                    </div>
-                    <button id="confirm-payment" class="btn-primary">Confirm Payment</button>
+                <div class="payment-method" data-method="paypal">
+                    <i class="fab fa-paypal"></i>
+                    <span>PayPal</span>
                 </div>
+                <div class="payment-method" data-method="stripe">
+                    <i class="fab fa-cc-stripe"></i>
+                    <span>Credit/Debit Card</span>
+                </div>
+            </div>
+            
+            <div class="payment-form">
+                <!-- M-Pesa Payment Form -->
+                <div id="mpesa-form" class="payment-details active">
+                    <div class="mpesa-instructions">
+                        <h4>M-Pesa Payment Instructions:</h4>
+                        <ol>
+                            <li>Go to your M-Pesa menu</li>
+                            <li>Select <strong>Lipa Na M-Pesa</strong></li>
+                            <li>Select <strong>Pay Bill</strong></li>
+                            <li>Enter Business Number: <strong>123456</strong></li>
+                            <li>Enter Account Number: <strong>HAKIKA001</strong></li>
+                            <li>Amount: <strong>KSH 7,500</strong> (approx $49.99)</li>
+                            <li>Enter your M-Pesa PIN</li>
+                            <li>Wait for confirmation message</li>
+                        </ol>
+                        <div class="important-note">
+                            <p><strong>IMPORTANT:</strong> In the message section, you MUST include: <strong>"Hakika R Provision"</strong></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mpesa-phone">Your M-Pesa Phone Number</label>
+                        <input type="tel" id="mpesa-phone" placeholder="07XXXXXXXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mpesa-code">M-Pesa Transaction Code</label>
+                        <input type="text" id="mpesa-code" placeholder="Enter transaction code from SMS" required>
+                        <small>Paste the transaction code from your M-Pesa confirmation message</small>
+                    </div>
+                    <button id="confirm-mpesa-payment" class="btn-primary">Verify M-Pesa Payment</button>
+                </div>
+
+                <!-- PayPal Payment Form -->
+                <div id="paypal-form" class="payment-details">
+                    <div class="form-group">
+                        <label for="paypal-email">PayPal Email Address</label>
+                        <input type="email" id="paypal-email" placeholder="your-email@example.com" required>
+                    </div>
+                    <div class="paypal-info">
+                        <p>You will be redirected to PayPal to complete your payment of <strong>$49.99</strong></p>
+                    </div>
+                    <button id="confirm-paypal-payment" class="btn-primary">Proceed to PayPal</button>
+                </div>
+
+                <!-- Stripe/Card Payment Form -->
+                <div id="stripe-form" class="payment-details">
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry-date">Expiry Date</label>
+                            <input type="text" id="expiry-date" placeholder="MM/YY" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name" placeholder="John Doe" required>
+                    </div>
+                    <button id="confirm-stripe-payment" class="btn-primary">Pay $49.99</button>
+                </div>
+            </div>
+            
+            <div class="payment-security">
+                <p><i class="fas fa-lock"></i> Your payment is secure and encrypted</p>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Payment Status Modal -->
+<div id="payment-status-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="payment-status-title">Payment Status</h2>
+            <span class="close-modal">&times;</span>
+        </div>
+        <div class="payment-status-content">
+            <div id="payment-success" class="payment-status hidden">
+                <div class="status-icon success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Payment Successful!</h3>
+                <p>Your account has been successfully activated. You can now access all available jobs.</p>
+                <button id="success-continue" class="btn-primary">Continue to Jobs</button>
+            </div>
+            
+            <div id="payment-failed" class="payment-status hidden">
+                <div class="status-icon error">
+                    <i class="fas fa-times-circle"></i>
+                </div>
+                <h3>Payment Failed</h3>
+                <p id="failure-reason">The transaction was unsuccessful. Please try again or use a different payment method.</p>
+                <div class="failure-actions">
+                    <button id="retry-payment" class="btn-primary">Try Again</button>
+                    <button id="change-method" class="btn-outline">Change Payment Method</button>
+                </div>
+            </div>
+            
+            <div id="payment-processing" class="payment-status">
+                <div class="status-icon processing">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <h3>Processing Payment...</h3>
+                <p>Please wait while we process your transaction.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Admin Panel (Hidden by default) -->
     <div id="admin-panel" class="page">
