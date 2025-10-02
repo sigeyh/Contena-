@@ -313,31 +313,33 @@
         </main>
     </div>
 
-    <!-- Upgrade Modal -->
-    <div id="upgrade-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Upgrade to Access Jobs</h2>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="upgrade-content">
-                <p>To access our premium job listings and start earning, you need to upgrade your account with a one-time activation fee.</p>
-                <div class="pricing-card">
-                    <h3>Premium Access</h3>
-                    <p class="price">$49.99</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Unlimited job access</li>
-                        <li><i class="fas fa-check"></i> Priority support</li>
-                        <li><i class="fas fa-check"></i> Weekly payments</li>
-                        <li><i class="fas fa-check"></i> Professional profile</li>
-                    </ul>
-                    <button id="pay-now-btn" class="btn-primary">Pay Now</button>
-                </div>
+<!-- Add this to your index.html file, replacing the existing payment modal -->
+
+<!-- Upgrade Modal -->
+<div id="upgrade-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Upgrade to Access Jobs</h2>
+            <span class="close-modal">&times;</span>
+        </div>
+        <div class="upgrade-content">
+            <p>To access our premium job listings and start earning, you need to upgrade your account with a one-time activation fee.</p>
+            <div class="pricing-card">
+                <h3>Premium Access</h3>
+                <p class="price">$49.99</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Unlimited job access</li>
+                    <li><i class="fas fa-check"></i> Priority support</li>
+                    <li><i class="fas fa-check"></i> Weekly payments</li>
+                    <li><i class="fas fa-check"></i> Professional profile</li>
+                </ul>
+                <button id="pay-now-btn" class="btn-primary">Pay Now</button>
             </div>
         </div>
     </div>
+</div>
 
- <!-- Payment Modal -->
+<!-- Payment Modal -->
 <div id="payment-modal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -468,7 +470,7 @@
                 </div>
             </div>
             
-            <div id="payment-processing" class="payment-status">
+            <div id="payment-processing" class="payment-status hidden">
                 <div class="status-icon processing">
                     <i class="fas fa-spinner fa-spin"></i>
                 </div>
@@ -478,7 +480,6 @@
         </div>
     </div>
 </div>
-
     <!-- Admin Panel (Hidden by default) -->
     <div id="admin-panel" class="page">
         <header class="dashboard-header">
