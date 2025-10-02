@@ -316,3 +316,70 @@ function simulateStripePayment(cardData, amount) {
         }, 2000);
     });
 }
+// Add these helper functions to app.js
+
+function getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser'));
+}
+
+function showToast(message, type = 'info') {
+    const toastContainer = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    const icon = type === 'success' ? 'fa-check-circle' : 
+                 type === 'error' ? 'fa-exclamation-circle' : 
+                 type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+    
+    toast.innerHTML = `
+        <i class="fas ${icon}"></i>
+        <span>${message}</span>
+    `;
+    
+    toastContainer.appendChild(toast);
+    
+    // Show toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+    
+    // Hide toast after 5 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            if (toastContainer.contains(toast)) {
+                toastContainer.removeChild(toast);
+            }
+        }, 300);
+    }, 5000);
+}
+
+function hideAllModals() {
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.classList.remove('active');
+    });
+}
+
+// Update the initApp function to initialize payment system
+function initApp() {
+    // Check if user is logged in
+    const currentUser = getCurrentUser();
+    
+    if (currentUser) {
+        if (currentUser.role === 'admin') {
+            showAdminPanel();
+        } else {
+            showDashboard();
+        }
+    } else {
+        showWelcomePage();
+    }
+    
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Initialize payment system
+    if (typeof initializePaymentSystem === 'function') {
+        initializePaymentSystem();
+    }
+}
