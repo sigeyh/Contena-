@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreelancePro - Your Gateway to Opportunities</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- SEO Meta Tags -->
+    <meta name="description" content="FreelancePro - Find freelance jobs in web development, writing, design, education & more. Secure payments, weekly withdrawals, and 24/7 support.">
+    <meta name="keywords" content="freelance, freelance jobs, online work, remote jobs, web development, design jobs, writing jobs, M-Pesa freelance">
+    <meta name="author" content="FreelancePro Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://freelancepro.vercel.app/">
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:title" content="FreelancePro - Your Gateway to Freelance Opportunities">
+    <meta property="og:description" content="Join FreelancePro to find jobs, earn securely, and withdraw weekly. Start your freelance career today.">
+    <meta property="og:image" content="https://freelancepro.vercel.app/images/hero-illustration.svg">
+    <meta property="og:url" content="https://freelancepro.vercel.app/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FreelancePro - Your Gateway to Freelance Opportunities">
+    <meta name="twitter:description" content="Find freelance jobs in web, writing, design, and more. Weekly payments and secure withdrawals.">
+    <meta name="twitter:image" content="https://freelancepro.vercel.app/images/hero-illustration.svg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Welcome/Landing Page -->
+    <div id="welcome-page" class="page active">
+        <header class="welcome-header">
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>FreelancePro</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button id="login-btn" class="btn-outline">Sign In</button>
+                    <button id="register-btn" class="btn-primary">Register</button>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Find Your Next <span class="highlight">Freelance Opportunity</span></h1>
+                    <p>Connect with clients, build your portfolio, and grow your career with our premium freelance platform.</p>
+                    <div class="hero-buttons">
+                        <button id="get-started-btn" class="btn-primary">Get Started</button>
+                        <button class="btn-outline"><i class="fas fa-play-circle"></i> Watch Demo</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/hero-illustration.svg" alt="Freelance Work Illustration">
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Why Choose FreelancePro?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Diverse Job Categories</h3>
+                        <p>Find opportunities in Web Development, Writing, Design, Education, and more.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Secure Payments</h3>
+                        <p>Get paid securely through integrated payment systems with weekly withdrawals.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 Support</h3>
+                        <p>Our support team is always available to help you with any questions or issues.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sign In to Your Account</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn-primary">Sign In</button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="#" id="switch-to-register">Register here</a></p>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Your Account</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email Address</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-phone">Phone Number</label>
+                    <input type="tel" id="register-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                <button type="submit" class="btn-primary">Create Account</button>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="#" id="switch-to-login">Sign in here</a></p>
+        </div>
+    </div>
+
+    <!-- Dashboard (Hidden by default) -->
+    <div id="dashboard" class="page">
+        <header class="dashboard-header">
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>FreelancePro</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="jobs">Jobs</a></li>
+                        <li><a href="#" class="nav-link" data-page="earnings">Earnings</a></li>
+                        <li><a href="#" class="nav-link" data-page="withdrawals">Withdrawals</a></li>
+                        <li><a href="#" class="nav-link" data-page="chat">Chat Support</a></li>
+                    </ul>
+                </nav>
+                <div class="user-menu">
+                    <span id="user-name">User Name</span>
+                    <div class="user-dropdown">
+                        <button id="user-dropdown-btn"><i class="fas fa-user-circle"></i></button>
+                        <div class="dropdown-content">
+                            <a href="#" id="profile-link">Profile</a>
+                            <a href="#" id="logout-btn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- Jobs Page -->
+            <div id="jobs-page" class="dashboard-page active">
+                <div class="container">
+                    <div class="page-header">
+                        <h1>Available Jobs</h1>
+                        <div class="filter-controls">
+                            <select id="category-filter">
+                                <option value="all">All Categories</option>
+                                <option value="web">Web Development</option>
+                                <option value="educational">Educational</option>
+                                <option value="writing">Writing</option>
+                                <option value="design">Design</option>
+                                <option value="others">Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="jobs-grid" id="jobs-container">
+                        <!-- Jobs will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings Page -->
+            <div id="earnings-page" class="dashboard-page">
+                <div class="container">
+                    <h1>My Earnings</h1>
+                    <div class="earnings-overview">
+                        <div class="earnings-card">
+                            <h3>Current Balance</h3>
+                            <p class="amount" id="current-balance">$0.00</p>
+                        </div>
+                        <div class="earnings-card">
+                            <h3>This Week</h3>
+                            <p class="amount" id="weekly-earnings">$0.00</p>
+                        </div>
+                        <div class="earnings-card">
+                            <h3>Total Earned</h3>
+                            <p class="amount" id="total-earnings">$0.00</p>
+                        </div>
+                    </div>
+                    <div class="earnings-history">
+                        <h2>Earnings History</h2>
+                        <table id="earnings-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Job</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Earnings history will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Withdrawals Page -->
+            <div id="withdrawals-page" class="dashboard-page">
+                <div class="container">
+                    <h1>Withdraw Earnings</h1>
+                    <div class="withdrawal-info">
+                        <p>Available for withdrawal: <strong id="available-balance">$0.00</strong></p>
+                        <p>Withdrawals are processed weekly on Fridays.</p>
+                    </div>
+                    <div class="withdrawal-form">
+                        <div class="form-group">
+                            <label for="withdrawal-amount">Amount to Withdraw</label>
+                            <input type="number" id="withdrawal-amount" min="10" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="withdrawal-method">Payment Method</label>
+                            <select id="withdrawal-method">
+                                <option value="paypal">PayPal</option>
+                                <option value="stripe">Stripe</option>
+                                <option value="mpesa">M-Pesa</option>
+                                <option value="bank">Bank Transfer</option>
+                            </select>
+                        </div>
+                        <button id="request-withdrawal" class="btn-primary">Request Withdrawal</button>
+                    </div>
+                    <div class="withdrawal-history">
+                        <h2>Withdrawal History</h2>
+                        <table id="withdrawal-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Withdrawal history will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Support Page -->
+            <div id="chat-page" class="dashboard-page">
+                <div class="container">
+                    <h1>Chat Support</h1>
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Chat messages will be populated by JavaScript -->
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="chat-input" placeholder="Type your message...">
+                            <label for="file-upload" class="file-upload-btn">
+                                <i class="fas fa-paperclip"></i>
+                            </label>
+                            <input type="file" id="file-upload" style="display: none;">
+                            <button id="send-message" class="btn-primary"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Upgrade Modal -->
+    <div id="upgrade-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upgrade to Access Jobs</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="upgrade-content">
+                <p>To access our premium job listings and start earning, you need to upgrade your account with a one-time activation fee.</p>
+                <div class="pricing-card">
+                    <h3>Premium Access</h3>
+                    <p class="price">$49.99</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Unlimited job access</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> Weekly payments</li>
+                        <li><i class="fas fa-check"></i> Professional profile</li>
+                    </ul>
+                    <button id="pay-now-btn" class="btn-primary">Pay Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Complete Payment</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="payment-content">
+                <div class="payment-methods">
+                    <div class="payment-method active" data-method="paypal">
+                        <i class="fab fa-paypal"></i>
+                        <span>PayPal</span>
+                    </div>
+                    <div class="payment-method" data-method="stripe">
+                        <i class="fab fa-cc-stripe"></i>
+                        <span>Stripe</span>
+                    </div>
+                    <div class="payment-method" data-method="mpesa">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>M-Pesa</span>
+                    </div>
+                </div>
+                <div class="payment-form">
+                    <div id="paypal-form" class="payment-details active">
+                        <div class="form-group">
+                            <label for="paypal-email">PayPal Email</label>
+                            <input type="email" id="paypal-email">
+                        </div>
+                    </div>
+                    <div id="stripe-form" class="payment-details">
+                        <div class="form-group">
+                            <label for="card-number">Card Number</label>
+                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry-date">Expiry Date</label>
+                                <input type="text" id="expiry-date" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mpesa-form" class="payment-details">
+                        <div class="form-group">
+                            <label for="mpesa-phone">Phone Number</label>
+                            <input type="tel" id="mpesa-phone">
+                        </div>
+                    </div>
+                    <button id="confirm-payment" class="btn-primary">Confirm Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel (Hidden by default) -->
+    <div id="admin-panel" class="page">
+        <header class="dashboard-header">
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>FreelancePro Admin</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="admin-users">Users</a></li>
+                        <li><a href="#" class="nav-link" data-page="admin-jobs">Jobs</a></li>
+                        <li><a href="#" class="nav-link" data-page="admin-payments">Payments</a></li>
+                        <li><a href="#" class="nav-link" data-page="admin-withdrawals">Withdrawals</a></li>
+                        <li><a href="#" class="nav-link" data-page="admin-chat">Chat Monitor</a></li>
+                    </ul>
+                </nav>
+                <div class="user-menu">
+                    <span>Admin</span>
+                    <div class="user-dropdown">
+                        <button id="admin-dropdown-btn"><i class="fas fa-user-cog"></i></button>
+                        <div class="dropdown-content">
+                            <a href="#" id="admin-logout-btn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- Admin Users Page -->
+            <div id="admin-users-page" class="dashboard-page active">
+                <div class="container">
+                    <h1>User Management</h1>
+                    <div class="admin-controls">
+                        <input type="text" id="user-search" placeholder="Search users...">
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Balance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- Users will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Jobs Page -->
+            <div id="admin-jobs-page" class="dashboard-page">
+                <div class="container">
+                    <h1>Job Management</h1>
+                    <button id="add-job-btn" class="btn-primary">Add New Job</button>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Pay Rate</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jobs-table-body">
+                            <!-- Jobs will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Payments Page -->
+            <div id="admin-payments-page" class="dashboard-page">
+                <div class="container">
+                    <h1>Payment Records</h1>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payments-table-body">
+                            <!-- Payments will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Withdrawals Page -->
+            <div id="admin-withdrawals-page" class="dashboard-page">
+                <div class="container">
+                    <h1>Withdrawal Requests</h1>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="withdrawals-table-body">
+                            <!-- Withdrawals will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Chat Page -->
+            <div id="admin-chat-page" class="dashboard-page">
+                <div class="container">
+                    <h1>Chat Monitoring</h1>
+                    <div class="admin-chat-container">
+                        <div class="chat-list">
+                            <h3>Active Chats</h3>
+                            <div id="chat-users-list">
+                                <!-- Chat users will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="chat-messages-admin">
+                            <div class="chat-header">
+                                <h3 id="selected-user">Select a user to view messages</h3>
+                            </div>
+                            <div class="chat-messages" id="admin-chat-messages">
+                                <!-- Messages will be populated by JavaScript -->
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="admin-chat-input" placeholder="Type your message...">
+                                <button id="admin-send-message" class="btn-primary"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Job Modal (Admin) -->
+    <div id="add-job-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Job</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="add-job-form">
+                <div class="form-group">
+                    <label for="job-title">Job Title</label>
+                    <input type="text" id="job-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="job-category">Category</label>
+                    <select id="job-category" required>
+                        <option value="web">Web Development</option>
+                        <option value="educational">Educational</option>
+                        <option value="writing">Writing</option>
+                        <option value="design">Design</option>
+                        <option value="others">Others</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="job-pay">Pay Rate ($)</label>
+                    <input type="number" id="job-pay" min="1" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="job-description">Description</label>
+                    <textarea id="job-description" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Add Job</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/jobs.js"></script>
+    <script src="scripts/payments.js"></script>
+    <script src="scripts/chat.js"></script>
+    <script src="scripts/admin.js"></script>
+</body>
+</html>
