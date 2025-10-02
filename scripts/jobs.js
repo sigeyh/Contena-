@@ -267,3 +267,39 @@ function deleteJob(jobId) {
         showToast('Job deleted successfully', 'success');
     }
 }
+function applyForJob(jobId) {
+    const currentUser = getCurrentUser();
+    
+    if (!currentUser) {
+        showToast('Please log in to apply for jobs', 'error');
+        return;
+    }
+    
+    if (!currentUser.isActivated) {
+        console.log('User not activated, showing upgrade modal');
+        showUpgradeModal();
+        return;
+    }
+    
+    const jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+    const job = jobs.find(j => j.id == jobId);
+    
+    if (job) {
+        // Submit application
+        showToast(`Application submitted for: ${job.title}`, 'success');
+        
+        // Add to user's active jobs
+        const userJobs = JSON.parse(localStorage.getItem('userJobs')) || [];
+        userJobs.push({
+            id: Date.now(),
+            jobId: job.id,
+            userId: currentUser.id,
+            jobTitle: job.title,
+            payRate: job.payRate,
+            appliedDate: new Date().toISOString(),
+            status: 'applied'
+        });
+        
+        localStorage.setItem('userJobs', JSON.stringify(userJobs));
+    }
+}
