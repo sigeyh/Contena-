@@ -248,3 +248,71 @@ window.addEventListener('click', function(event) {
         }
     });
 });
+// Add these utility functions to app.js
+function simulateMpesaPayment(phone, amount) {
+    // This would integrate with actual M-Pesa API in production
+    console.log(`Simulating M-Pesa payment of $${amount} to phone: ${phone}`);
+    
+    // Return a promise that simulates API call
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            // Simulate success 80% of the time
+            if (Math.random() > 0.2) {
+                resolve({
+                    success: true,
+                    transactionCode: 'MP' + Date.now().toString().slice(-8),
+                    message: 'Payment successful'
+                });
+            } else {
+                reject({
+                    success: false,
+                    error: 'Payment failed. Please try again.'
+                });
+            }
+        }, 2000);
+    });
+}
+
+function simulatePayPalPayment(email, amount) {
+    // This would integrate with actual PayPal API in production
+    console.log(`Simulating PayPal payment of $${amount} to email: ${email}`);
+    
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (Math.random() > 0.1) {
+                resolve({
+                    success: true,
+                    transactionId: 'PAYPAL' + Date.now().toString().slice(-8),
+                    message: 'Payment successful'
+                });
+            } else {
+                reject({
+                    success: false,
+                    error: 'Payment failed. Please check your PayPal account.'
+                });
+            }
+        }, 2000);
+    });
+}
+
+function simulateStripePayment(cardData, amount) {
+    // This would integrate with actual Stripe API in production
+    console.log(`Simulating Stripe payment of $${amount}`);
+    
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (Math.random() > 0.15) {
+                resolve({
+                    success: true,
+                    transactionId: 'STRIPE' + Date.now().toString().slice(-8),
+                    message: 'Payment successful'
+                });
+            } else {
+                reject({
+                    success: false,
+                    error: 'Card declined. Please check your card details.'
+                });
+            }
+        }, 2000);
+    });
+}
