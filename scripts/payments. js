@@ -1,0 +1,360 @@
+// Payment Functions
+function selectPaymentMethod(method) {
+    // Update active payment method
+    document.querySelectorAll('.payment-method').forEach(el => {
+        el.classList.remove('active');
+    });
+    
+    document.querySelector(`.payment-method[data-method="${method}"]`).classList.add('active');
+    
+    // Show corresponding form
+    document.querySelectorAll('.payment-details').forEach(form => {
+        form.classList.remove('active');
+    });
+    
+    document.getElementById(`${method}-form`).classList.add('active');
+}
+
+function handlePayment() {
+    const currentUser = getCurrentUser();
+    
+    if (!currentUser) {
+        showToast('Please log in to make a payment', 'error');
+        return;
+    }
+    
+    // Get selected payment method
+    const selectedMethod = document.querySelector('.payment-method.active').getAttribute('data-method');
+    
+    // Validate form based on payment method
+    let isValid = true;
+    
+    if (selectedMethod === 'paypal') {
+        const email = document.getElementById('paypal-email').value;
+        if (!email) {
+            showToast('Please enter your PayPal email', 'error');
+            isValid = false;
+        }
+    } else if (selectedMethod === 'stripe') {
+        const cardNumber = document.getElementById('card-number').value;
+        const expiryDate = document.getElementById('expiry-date').value;
+        const cvv = document.getElementById('cvv').value;
+        
+        if (!cardNumber || !expiryDate || !cvv) {
+            showToast('Please fill in all card details', 'error');
+            isValid = false;
+        }
+    } else if (selectedMethod === 'mpesa') {
+        const phone = document.getElementById('mpesa-phone').value;
+        if (!phone) {
+            showToast('Please enter your M-Pesa phone number', 'error');
+            isValid = false;
+        }
+    }
+    
+    if (!isValid) return;
+    
+    // Process payment (simulated)
+    showToast('Processing payment...', 'info');
+    
+    setTimeout(() => {
+        // Record payment
+        const payments = JSON.parse(localStorage.getItem('payments')) || [];
+        const newPayment = {
+            id: Date.now(),
+            userId: currentUser.id,
+            amount: 49.99,
+            method: selectedMethod,
+            type: 'activation',
+            status: 'completed',
+            date: new Date().toISOString()
+        };
+        
+        payments.push(newPayment);
+        localStorage.setItem('payments', JSON.stringify(payments));
+        
+        // Update user activation status
+        updateUserActivation();
+        
+        hidePaymentModal();
+        hideUpgradeModal();
+        showToast('Payment successful! Your account is now activated.', 'success');
+        
+        // Refresh dashboard to show activated state
+        loadJobs();
+    }, 2000);
+}
+
+// Withdrawal Functions
+function loadWithdrawals() {
+    const currentUser = getCurrentUser();
+    if (!currentUser) return;
+    
+    // Update available balance
+    document.getElementById('available-balance').textContent = `$${currentUser.balance.toFixed(2)}`;
+    
+    // Load withdrawal history
+    const withdrawals = JSON.parse(localStorage.getItem('withdrawals')) || [];
+    const userWithdrawals = withdrawals.filter(w => w.userId === currentUser.id);
+    
+    displayWithdrawals(userWithdrawals);
+}
+
+function displayWithdrawals(withdrawals) {
+    const withdrawalTableBody = document.getElementById('withdrawal-table').querySelector('tbody');
+    
+    if (withdrawals.length === 0) {
+        withdrawalTableBody.innerHTML = '<tr><td colspan="4" class="no-data">No withdrawal history</td></tr>';
+        return;
+    }
+    
+    withdrawalTableBody.innerHTML = withdrawals.map(withdrawal => `
+        <tr>
+            <td>${new Date(withdrawal.date).toLocaleDateString()}</td>
+            <td>$${withdrawal.amount.toFixed(2)}</td>
+            <td>${withdrawal.method}</td>
+            <td><span class="status-badge ${getWithdrawalStatusClass(withdrawal.status)}">${withdrawal.status}</span></td>
+        </tr>
+    `).join('');
+}
+
+function getWithdrawalStatusClass(status) {
+    const statusClasses = {
+        'pending': 'status-pending',
+        'approved': 'status-approved',
+        'completed': 'status-completed',
+        'rejected': 'status-rejected'
+    };
+    
+    return statusClasses[status] || 'status-pending';
+}
+
+function requestWithdrawal() {
+    const currentUser = getCurrentUser();
+    if (!currentUser) return;
+    
+    const amount = parseFloat(document.getElementById('withdrawal-amount').value);
+    const method = document.getElementById('withdrawal-method').value;
+    
+    if (!amount || amount <= 0) {
+        showToast('Please enter a valid amount', 'error');
+        return;
+    }
+    
+    if (amount > currentUser.balance) {
+        showToast('Insufficient balance for this withdrawal', 'error');
+        return;
+    }
+    
+    if (amount < 10) {
+        showToast('Minimum withdrawal amount is $10', 'error');
+        return;
+    }
+    
+    // Create withdrawal request
+    const withdrawals = JSON.parse(localStorage.getItem('withdrawals')) || [];
+    const newWithdrawal = {
+        id: Date.now(),
+        userId: currentUser.id,
+        userName: currentUser.name,
+        amount: amount,
+        method: method,
+        status: 'pending',
+        date: new Date().toISOString()
+    };
+    
+    withdrawals.push(newWithdrawal);
+    localStorage.setItem('withdrawals', JSON.stringify(withdrawals));
+    
+    // Update user balance (in a real app, this would happen after admin approval)
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(user => user.id === currentUser.id);
+    
+    if (userIndex !== -1) {
+        users[userIndex].balance -= amount;
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        // Update current user
+        currentUser.balance -= amount;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    }
+    
+    // Reset form and refresh
+    document.getElementById('withdrawal-amount').value = '';
+    loadWithdrawals();
+    showToast('Withdrawal request submitted successfully', 'success');
+}
+
+// Earnings Functions
+function loadEarnings() {
+    const currentUser = getCurrentUser();
+    if (!currentUser) return;
+    
+    // Update earnings overview
+    document.getElementById('current-balance').textContent = `$${currentUser.balance.toFixed(2)}`;
+    
+    // Calculate weekly earnings (simulated)
+    const weeklyEarnings = currentUser.balance * 0.3; // 30% of balance as weekly
+    document.getElementById('weekly-earnings').textContent = `$${weeklyEarnings.toFixed(2)}`;
+    
+    // Calculate total earnings (simulated)
+    const totalEarnings = currentUser.balance * 3.5; // 3.5x balance as total
+    document.getElementById('total-earnings').textContent = `$${totalEarnings.toFixed(2)}`;
+    
+    // Load earnings history
+    const earnings = JSON.parse(localStorage.getItem('earnings')) || generateSampleEarnings(currentUser.id);
+    const userEarnings = earnings.filter(e => e.userId === currentUser.id);
+    
+    displayEarnings(userEarnings);
+}
+
+function generateSampleEarnings(userId) {
+    const sampleEarnings = [
+        {
+            id: 1,
+            userId: userId,
+            jobTitle: 'Website Redesign',
+            amount: 450,
+            date: '2023-06-10',
+            status: 'completed'
+        },
+        {
+            id: 2,
+            userId: userId,
+            jobTitle: 'Content Writing',
+            amount: 120,
+            date: '2023-06-17',
+            status: 'completed'
+        },
+        {
+            id: 3,
+            userId: userId,
+            jobTitle: 'Logo Design',
+            amount: 200,
+            date: '2023-06-24',
+            status: 'pending'
+        }
+    ];
+    
+    localStorage.setItem('earnings', JSON.stringify(sampleEarnings));
+    return sampleEarnings;
+}
+
+function displayEarnings(earnings) {
+    const earningsTableBody = document.getElementById('earnings-table').querySelector('tbody');
+    
+    if (earnings.length === 0) {
+        earningsTableBody.innerHTML = '<tr><td colspan="4" class="no-data">No earnings history</td></tr>';
+        return;
+    }
+    
+    earningsTableBody.innerHTML = earnings.map(earning => `
+        <tr>
+            <td>${new Date(earning.date).toLocaleDateString()}</td>
+            <td>${earning.jobTitle}</td>
+            <td>$${earning.amount.toFixed(2)}</td>
+            <td><span class="status-badge ${earning.status === 'completed' ? 'status-completed' : 'status-pending'}">${earning.status}</span></td>
+        </tr>
+    `).join('');
+}
+
+// Admin Payment & Withdrawal Management
+function loadAdminPayments() {
+    const payments = JSON.parse(localStorage.getItem('payments')) || [];
+    displayAdminPayments(payments);
+}
+
+function displayAdminPayments(payments) {
+    const paymentsTableBody = document.getElementById('payments-table-body');
+    
+    if (payments.length === 0) {
+        paymentsTableBody.innerHTML = '<tr><td colspan="5" class="no-data">No payment records</td></tr>';
+        return;
+    }
+    
+    paymentsTableBody.innerHTML = payments.map(payment => {
+        // Get user name
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.id === payment.userId) || { name: 'Unknown User' };
+        
+        return `
+            <tr>
+                <td>${user.name}</td>
+                <td>$${payment.amount.toFixed(2)}</td>
+                <td>${payment.method}</td>
+                <td>${new Date(payment.date).toLocaleDateString()}</td>
+                <td><span class="status-badge status-completed">${payment.status}</span></td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function loadAdminWithdrawals() {
+    const withdrawals = JSON.parse(localStorage.getItem('withdrawals')) || [];
+    displayAdminWithdrawals(withdrawals);
+}
+
+function displayAdminWithdrawals(withdrawals) {
+    const withdrawalsTableBody = document.getElementById('withdrawals-table-body');
+    
+    if (withdrawals.length === 0) {
+        withdrawalsTableBody.innerHTML = '<tr><td colspan="6" class="no-data">No withdrawal requests</td></tr>';
+        return;
+    }
+    
+    withdrawalsTableBody.innerHTML = withdrawals.map(withdrawal => `
+        <tr>
+            <td>${withdrawal.userName}</td>
+            <td>$${withdrawal.amount.toFixed(2)}</td>
+            <td>${withdrawal.method}</td>
+            <td>${new Date(withdrawal.date).toLocaleDateString()}</td>
+            <td><span class="status-badge ${getWithdrawalStatusClass(withdrawal.status)}">${withdrawal.status}</span></td>
+            <td class="action-buttons">
+                ${withdrawal.status === 'pending' ? `
+                    <button class="action-btn approve-btn" data-withdrawal-id="${withdrawal.id}">Approve</button>
+                    <button class="action-btn reject-btn" data-withdrawal-id="${withdrawal.id}">Reject</button>
+                ` : 'No actions'}
+            </td>
+        </tr>
+    `).join('');
+    
+    // Add event listeners to action buttons
+    document.querySelectorAll('.approve-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const withdrawalId = this.getAttribute('data-withdrawal-id');
+            processWithdrawal(withdrawalId, 'approved');
+        });
+    });
+    
+    document.querySelectorAll('.reject-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const withdrawalId = this.getAttribute('data-withdrawal-id');
+            processWithdrawal(withdrawalId, 'rejected');
+        });
+    });
+}
+
+function processWithdrawal(withdrawalId, action) {
+    const withdrawals = JSON.parse(localStorage.getItem('withdrawals')) || [];
+    const withdrawalIndex = withdrawals.findIndex(w => w.id == withdrawalId);
+    
+    if (withdrawalIndex !== -1) {
+        withdrawals[withdrawalIndex].status = action;
+        localStorage.setItem('withdrawals', JSON.stringify(withdrawals));
+        
+        // If rejected, return funds to user
+        if (action === 'rejected') {
+            const withdrawal = withdrawals[withdrawalIndex];
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(user => user.id === withdrawal.userId);
+            
+            if (userIndex !== -1) {
+                users[userIndex].balance += withdrawal.amount;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+        
+        loadAdminWithdrawals();
+        showToast(`Withdrawal ${action} successfully`, 'success');
+    }
+}
