@@ -956,4 +956,173 @@ body {
 
 .toast.info {
     background-color: var(--primary-color);
+
+}
+
+/* Payment Styles */
+.payment-amount-info {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+    color: white;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+.payment-amount-info .amount {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.mpesa-instructions {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.mpesa-instructions h4 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.mpesa-instructions ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.mpesa-instructions li {
+    margin-bottom: 8px;
+}
+
+.important-note {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.important-note p {
+    margin: 0;
+    color: #856404;
+}
+
+.paypal-info, .stripe-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.payment-security {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--light-gray);
+    color: var(--gray-color);
+}
+
+.payment-security i {
+    color: var(--success-color);
+    margin-right: 8px;
+}
+
+/* Payment Status Styles */
+.payment-status-content {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.payment-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.payment-status.hidden {
+    display: none;
+}
+
+.status-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.status-icon.success {
+    color: var(--success-color);
+}
+
+.status-icon.error {
+    color: var(--danger-color);
+}
+
+.status-icon.processing {
+    color: var(--primary-color);
+}
+
+.payment-status h3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.payment-status p {
+    margin-bottom: 25px;
+    color: var(--gray-color);
+    max-width: 400px;
+}
+
+.failure-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Payment Method Selection */
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.payment-method {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 15px;
+    border: 2px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.payment-method.active {
+    border-color: var(--primary-color);
+    background-color: rgba(67, 97, 238, 0.05);
+}
+
+.payment-method i {
+    font-size: 32px;
+    color: var(--gray-color);
+}
+
+.payment-method.active i {
+    color: var(--primary-color);
+}
+
+.payment-method span {
+    font-weight: 500;
+}
+
+.payment-details {
+    display: none;
+}
+
+.payment-details.active {
+    display: block;
 }
